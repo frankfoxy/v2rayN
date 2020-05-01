@@ -240,9 +240,18 @@ namespace v2rayN.Handler
                         ShowMsg(false, msg);
                     }
                 });
+                p.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                    if (!String.IsNullOrEmpty(e.Data))
+                    {
+                        string msg = e.Data + Environment.NewLine;
+                        ShowMsg(false, msg);
+                    }
+                });
                 p.Start();
                 p.PriorityClass = ProcessPriorityClass.High;
                 p.BeginOutputReadLine();
+                p.BeginErrorReadLine();
                 //processId = p.Id;
                 _process = p;
 
@@ -260,6 +269,7 @@ namespace v2rayN.Handler
                 ShowMsg(true, msg);
             }
         }
+
         /// <summary>
         /// V2ray启动，新建进程，传入配置字符串
         /// </summary>
