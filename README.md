@@ -8,3 +8,9 @@
 ### Requirements  
 - Microsoft [.NET Framework 4.6](https://docs.microsoft.com/zh-cn/dotnet/framework/install/guide-for-developers) or higher
 - Project V core [https://github.com/v2ray/v2ray-core/releases](https://github.com/v2ray/v2ray-core/releases)
+
+
+### Trojan support
+ - Usage: 
+   - put trojan.exe to the same directory of v2rayN.exe
+   - add trojan server in v2rayN UI.
