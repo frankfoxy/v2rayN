@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>v2rayN</RootNamespace>
     <AssemblyName>v2rayN</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -97,6 +97,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\AddServerTrojanForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddServerTrojanForm.Designer.cs">
+      <DependentUpon>AddServerTrojanForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddServer4Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +222,14 @@
     <Compile Include="Handler\V2rayConfigHandler.cs" />
     <EmbeddedResource Include="Forms\AddServer2Form.zh-Hans.resx">
       <DependentUpon>AddServer2Form.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddServerTrojanForm.resx">
+      <DependentUpon>AddServerTrojanForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AddServerTrojanForm.zh-Hans.resx">
+      <DependentUpon>AddServerTrojanForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddServer4Form.resx">
@@ -399,6 +413,9 @@
     <PackageReference Include="ZXing.Net">
       <Version>0.16.5</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

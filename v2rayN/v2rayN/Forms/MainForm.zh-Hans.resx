@@ -513,4 +513,7 @@
   <data name="tsbQRCodeSwitch.Text" xml:space="preserve">
     <value>  分享  </value>
   </data>
+  <data name="menuAddTrojanServer.Text" xml:space="preserve">
+    <value>添加[Trojan]服务器</value>
+  </data>
 </root>

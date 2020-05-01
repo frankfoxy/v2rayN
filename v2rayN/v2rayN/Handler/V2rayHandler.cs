@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using v2rayN.Mode;
 
@@ -22,6 +24,7 @@ namespace v2rayN.Handler
     {
         private static string v2rayConfigRes = Global.v2rayConfigFileName;
         private List<string> lstV2ray;
+        private List<string> lstTrojan;
         public event ProcessDelegate ProcessEvent;
         //private int processId = 0;
         private Process _process;
@@ -32,6 +35,10 @@ namespace v2rayN.Handler
             {
                 "wv2ray",
                 "v2ray"
+            };
+            lstTrojan = new List<string>
+            {
+                "trojan",
             };
         }
 
@@ -49,8 +56,28 @@ namespace v2rayN.Handler
                 }
                 else
                 {
+                    var vmessSelected = config.vmess[config.index];
+                    var isTrojan = vmessSelected.configType == (int) EConfigType.Trojan;
+
+                    // construct trojan config file before start 
+                    if (isTrojan)
+                    {
+                        TrojanConfigCli cfg = new TrojanConfigCli
+                        {
+                            remote_addr = vmessSelected.address,
+                            remote_port = vmessSelected.port,
+                            password = new List<string>() {vmessSelected.id},
+                            local_port = config.inbound[0].localPort
+                        };
+                        if (config.allowLANConn)
+                            cfg.local_addr = "0.0.0.0";
+
+                        Utils.ToJsonFile(cfg, Utils.GetPath("config.json"));
+                    }
+
+                
                     ShowMsg(true, msg);
-                    V2rayRestart();
+                    V2rayRestart(config.vmess[config.index].configType == (int)EConfigType.Trojan);
                 }
             }
         }
@@ -76,14 +103,14 @@ namespace v2rayN.Handler
             }
             return pid;
         }
-
+    
         /// <summary>
         /// V2ray重启
         /// </summary>
-        private void V2rayRestart()
+        private void V2rayRestart(bool trojan=false)
         {
             V2rayStop();
-            V2rayStart();
+            V2rayStart(trojan);
         }
 
         /// <summary>
@@ -101,7 +128,7 @@ namespace v2rayN.Handler
                 }
                 else
                 {
-                    foreach (string vName in lstV2ray)
+                    foreach (string vName in lstTrojan.Concat(lstV2ray))
                     {
                         Process[] existing = Process.GetProcessesByName(vName);
                         foreach (Process p in existing)
@@ -158,13 +185,13 @@ namespace v2rayN.Handler
             }
         }
 
-        private string V2rayFindexe() {
+        private string V2rayFindexe(bool trojan=false) {
             //查找v2ray文件是否存在
             string fileName = string.Empty;
             lstV2ray.Reverse();
-            foreach (string name in lstV2ray)
+            foreach (string name in (trojan ? lstTrojan : lstV2ray))
             {
-                string vName = string.Format("{0}.exe", name);
+                string vName = $"{name}.exe";
                 vName = Utils.GetPath(vName);
                 if (File.Exists(vName))
                 {
@@ -179,17 +206,17 @@ namespace v2rayN.Handler
             }
             return fileName;
         }
-
+    
         /// <summary>
         /// V2ray启动
         /// </summary>
-        private void V2rayStart()
+        private void V2rayStart(bool trojan = false)
         {
             ShowMsg(false, string.Format(UIRes.I18N("StartService"), DateTime.Now.ToString()));
 
             try
             {
-                string fileName = V2rayFindexe();
+                string fileName = V2rayFindexe(trojan);
                 if (fileName == "") return;
 
                 Process p = new Process

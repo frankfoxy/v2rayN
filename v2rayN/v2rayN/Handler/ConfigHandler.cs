@@ -603,7 +603,46 @@ namespace v2rayN.Handler
 
             return 0;
         }
+        /// <summary>
+        /// 添加服务器或编辑
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="vmessItem"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static int AddTrojanServer(ref Config config, VmessItem vmessItem, int index)
+        {
+            vmessItem.configVersion = 2;
+            vmessItem.configType = (int)EConfigType.Trojan;
 
+            vmessItem.address = vmessItem.address.TrimEx();
+            vmessItem.port = vmessItem.port;
+            vmessItem.id = vmessItem.id.TrimEx();
+
+            if (index >= 0)
+            {
+                //修改
+                config.vmess[index] = vmessItem;
+                if (config.index.Equals(index))
+                {
+                    Global.reloadV2ray = true;
+                }
+            }
+            else
+            {
+                //添加
+                config.vmess.Add(vmessItem);
+                if (config.vmess.Count == 1)
+                {
+                    config.index = 0;
+                    Global.reloadV2ray = true;
+                }
+            }
+
+            ToJsonFile(config);
+
+            return 0;
+        }
         /// <summary>
         /// 添加服务器或编辑
         /// </summary>

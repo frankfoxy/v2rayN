@@ -33,6 +33,7 @@
             this.scMain = new System.Windows.Forms.SplitContainer();
             this.lvServers = new v2rayN.Base.ListViewFlickerFree();
             this.cmsLv = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuAddTrojanServer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddVmessServer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddShadowsocksServer = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAddSocksServer = new System.Windows.Forms.ToolStripMenuItem();
@@ -175,6 +176,7 @@
             // 
             this.cmsLv.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cmsLv.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAddTrojanServer,
             this.menuAddVmessServer,
             this.menuAddShadowsocksServer,
             this.menuAddSocksServer,
@@ -206,6 +208,12 @@
             this.cmsLv.Name = "cmsLv";
             this.cmsLv.OwnerItem = this.tsbServer;
             resources.ApplyResources(this.cmsLv, "cmsLv");
+            // 
+            // menuAddTrojanServer
+            // 
+            this.menuAddTrojanServer.Name = "menuAddTrojanServer";
+            resources.ApplyResources(this.menuAddTrojanServer, "menuAddTrojanServer");
+            this.menuAddTrojanServer.Click += new System.EventHandler(this.menuAddTrojanServer_Click);
             // 
             // menuAddVmessServer
             // 
@@ -936,6 +944,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsbTestMe;
         private System.Windows.Forms.ToolStripButton tsbReload;
         private System.Windows.Forms.ToolStripButton tsbQRCodeSwitch;
+        private System.Windows.Forms.ToolStripMenuItem menuAddTrojanServer;
     }
 }
 

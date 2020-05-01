@@ -513,6 +513,18 @@ namespace v2rayN.Forms
                     LoadV2ray();
                 }
             }
+            else if (config.vmess[index].configType == (int)EConfigType.Trojan)
+            {
+                AddServerTrojanForm fm = new AddServerTrojanForm
+                {
+                    EditIndex = index
+                };
+                if (fm.ShowDialog() == DialogResult.OK)
+                {
+                    RefreshServers();
+                    LoadV2ray();
+                }
+            }
             else
             {
                 AddServer2Form fm2 = new AddServer2Form
@@ -875,6 +887,21 @@ namespace v2rayN.Forms
             {
                 UI.ShowWarning(UIRes.I18N("FailedImportedCustomServer"));
             }
+        }
+
+        private void menuAddTrojanServer_Click(object sender, EventArgs e)
+        {
+            AddServerTrojanForm fm = new AddServerTrojanForm
+            {
+                EditIndex = -1
+            };
+            if (fm.ShowDialog() == DialogResult.OK)
+            {
+                //刷新
+                RefreshServers();
+                LoadV2ray();
+            }
+            ShowForm();
         }
 
         private void menuAddShadowsocksServer_Click(object sender, EventArgs e)
@@ -1594,6 +1621,5 @@ namespace v2rayN.Forms
 
 
         #endregion
-
     }
 }

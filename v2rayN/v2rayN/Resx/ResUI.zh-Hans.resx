@@ -345,6 +345,9 @@
   <data name="StartService" xml:space="preserve">
     <value>启动服务({0})...</value>
   </data>
+  <data name="StartTrojanService" xml:space="preserve">
+    <value>启动Trojan服务({0})...</value>
+  </data>
   <data name="SuccessfulConfiguration" xml:space="preserve">
     <value>配置成功
 {0}</value>

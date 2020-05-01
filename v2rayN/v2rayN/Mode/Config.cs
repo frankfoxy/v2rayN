@@ -716,4 +716,81 @@ namespace v2rayN.Mode
             get; set;
         }
     }
+
+    [Serializable]
+    public class TrojanConfigCli
+    {
+        public TrojanConfigCli()
+        {
+            run_type = "client";
+            local_addr = "127.0.0.1";
+            remote_addr = "";
+            remote_port = 443;
+            password = new List<string>(){""};
+            append_payload = true;
+            log_level = 1;
+            ssl = new Ssl();
+            tcp = new Tcp();
+        }
+
+        public string run_type { get; set; }
+        public string local_addr { get; set; }
+        public long local_port { get; set; }
+        public string remote_addr { get; set; }
+        public long remote_port { get; set; }
+        public List<string> password { get; set; }
+        public bool append_payload { get; set; }
+        public long log_level { get; set; }
+        public Ssl ssl { get; set; }
+        public Tcp tcp { get; set; }
+    }
+
+    [Serializable]
+    public class Ssl
+    {
+        public Ssl()
+        {
+            verify = true;
+            verify_hostname = true;
+            cert = "";
+            cipher = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:" +
+                     "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:" +
+                     "ECDHE-ECDSA-CHACHA20-POLY1305-SHA256:ECDHE-RSA-CHACHA20-POLY1305-SHA256:" +
+                     "ECDHE-RSA-AES128-SHA:ECDHE-RSA-AES256-SHA:RSA-AES128-GCM-SHA256:" +
+                     "RSA-AES256-GCM-SHA384:RSA-AES128-SHA:RSA-AES256-SHA:RSA-3DES-EDE-SHA";
+            sni = "";
+            alpn = new List<string>(){"h2", "http/1.1"};
+            reuse_session = true;
+            session_ticket = false;
+            curves = "";
+        }
+
+        public bool verify { get; set; }
+        public bool verify_hostname { get; set; }
+        public string cert { get; set; }
+        public string cipher { get; set; }
+        public string sni { get; set; }
+        public List<string> alpn { get; set; }
+        public bool reuse_session { get; set; }
+        public bool session_ticket { get; set; }
+        public string curves { get; set; }
+    }
+
+    [Serializable]
+    public class Tcp
+    {
+        public Tcp()
+        {
+            no_delay = true;
+            keep_alive = true;
+            fast_open = false;
+            fast_open_qlen = 20;
+        }
+
+        public bool no_delay { get; set; }
+        public bool keep_alive { get; set; }
+        public bool fast_open { get; set; }
+        public long fast_open_qlen { get; set; }
+    }
+
 }
