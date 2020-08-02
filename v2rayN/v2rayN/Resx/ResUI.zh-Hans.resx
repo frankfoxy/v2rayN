@@ -300,6 +300,9 @@
   <data name="NotFoundCore" xml:space="preserve">
     <value>找不到 v2ray-core，下载地址: {0}</value>
   </data>
+  <data name="NotFoundTrojan" xml:space="preserve">
+    <value>找不到 Trojan 执行文件，下载地址: {0}</value>
+  </data>
   <data name="NoValidQRcodeFound" xml:space="preserve">
     <value>扫描完成,未发现有效二维码</value>
   </data>

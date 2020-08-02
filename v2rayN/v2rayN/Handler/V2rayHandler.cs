@@ -199,11 +199,23 @@ namespace v2rayN.Handler
                     break;
                 }
             }
+
             if (Utils.IsNullOrEmpty(fileName))
             {
-                string msg = string.Format(UIRes.I18N("NotFoundCore"), @"https://github.com/v2fly/v2ray-core/releases");
-                ShowMsg(false, msg);
+                if (trojan)
+                {
+                    string msg = string.Format(UIRes.I18N("NotFoundTrojan"),
+                        @"https://github.com/trojan-gfw/trojan/releases");
+                    ShowMsg(false, msg);
+                }
+                else
+                {
+                    string msg = string.Format(UIRes.I18N("NotFoundCore"),
+                        @"https://github.com/v2fly/v2ray-core/releases");
+                    ShowMsg(false, msg);
+                }
             }
+
             return fileName;
         }
     

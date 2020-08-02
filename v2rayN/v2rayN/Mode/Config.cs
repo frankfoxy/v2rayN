@@ -750,8 +750,8 @@ namespace v2rayN.Mode
     {
         public Ssl()
         {
-            verify = true;
-            verify_hostname = true;
+            verify = false;
+            verify_hostname = false;
             cert = "";
             cipher = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:" +
                      "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:" +
